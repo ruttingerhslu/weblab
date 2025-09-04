@@ -5,7 +5,6 @@ This project is part of the HSLU course WEBLAB. For the assignment, I chose the 
 ## Contents
 
 - [Architecture documentation](./docs/architecture.md)
-- [Context, ]()
 
 
 ## Tech Stack
