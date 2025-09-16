@@ -1,16 +1,38 @@
-const express=require('express'),
-http=require('http');
-const hostname='localhost';
-const port=8080;
-const app=express();
+import express from "express";
+import { MongoClient, ServerApiVersion } from "mongodb";
+import dotenv from "dotenv";
+import path from "path";
 
-app.use((req, res)=> {
-        console.log(req.headers); 
-        res.statusCode=200; 
-        res.setHeader('Content-Type', 'text/html'); 
-        res.end('<html><body><h1>This is a test server</h1></body></html>');
+dotenv.config({ path: path.resolve("../.env") });
+
+const app = express();
+
+const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_PARAMS}`;
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
 });
-const sample_server=http.createServer(app);
 
-sample_server.listen(port, hostname, ()=> {
-        console.log(`Server running at http: //${hostname}:${port}/`);});
+async function connectDB() {
+  try {
+    await client.connect();
+    await client.db("admin").command({ ping: 1 });
+    console.log("✅ Connected to MongoDB Atlas");
+  } catch (err) {
+    console.error("❌ MongoDB connection error:", err);
+  }
+}
+connectDB();
+
+// Example Express route
+app.get("/", (req, res) => {
+  res.send("Hello World, MongoDB is connected!");
+});
+
+app.listen(8080, () => {
+  console.log("🚀 Server running on http://localhost:8080");
+});

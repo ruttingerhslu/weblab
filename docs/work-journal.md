@@ -8,3 +8,4 @@
 
 ## 16.09.25
 1h; kanban board creation, create component for registering technologies
+1h; initial pages setup with navigation
