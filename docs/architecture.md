@@ -12,8 +12,6 @@ Due to the limited scope of this project, no further constraints are detailed he
 
 # 3. System context and scope
 
-
-## 3.1 System context diagram
 The following diagram shows the system from the business side of things.
 
 ```mermaid
@@ -34,9 +32,19 @@ UpdateRelStyle(employeeA, systemA, $offsetX="-100")
 UpdateLayoutConfig($c4ShapeInRow="2")
 ```
 
-## 3.2 Container diagram
-Zooming into the Technology Radar above, we get the following diagram:
 
+# 4. Solution Strategy
+
+| Goal/Requirements | Architectural Approach | Details |
+| ------------- | ------------- | ------  |
+| Viewer should be optimized for mobile/tablet view | Responsive design | |
+| Viewer should be loaded within 1s, when using 4G connection | Pre-load data in background | |
+| Administration activities should be recorded | |
+| UI/integration tests | |
+
+# 5. Building Block View
+
+## 5.1 Level 1
 ```mermaid
 C4Container
 title Container diagram for Technology Radar
@@ -67,9 +75,12 @@ UpdateRelStyle(employeeA, c_react, $offsetX="-100", $offsetY="-75")
 UpdateRelStyle(adminA, c_react, $offsetX="0", $offsetY="-75")
 ```
 
-# 4. Solution Strategy
+## 5.2 Level 2
 
-# 5. Building Block View
+```mermaid
+C4Component
+title Component diagram for Technology Radar Backend - API
+```
 
 # 6. Runtime View
 
@@ -86,5 +97,17 @@ The following [Architecture Decision Records (ADR's)](https://adr.github.io/) we
 1. [MERN Techstack](./decisions/01-techstack.md)
 
 # 10. Quality scenarios
+
+## 10.1 Quality Tree
+| Quality Category | Quality | Description | Scenario |
+| ------------- | ------------- | ---- | ---|
+| | | | SC1 |
+| | | | SC2 | 
+
+## 10.2 Quality Scenarios
+| ID      | Scenario      |
+| -- | ------------- |
+| SC1 |  |
+| SC2 | Cell 1, Row 2 |
 
 

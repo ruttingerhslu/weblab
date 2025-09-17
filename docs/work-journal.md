@@ -14,3 +14,5 @@
 ## 17.09.25
 2h; implement post and get requests for technology
 1h; implement admin dashboard and from for adding technology
+
+TOTAL: 10h
