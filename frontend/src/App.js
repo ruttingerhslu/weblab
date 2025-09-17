@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages";
 import Admin from "./pages/admin";
-import Radar from "./pages/radar";
+import Viewer from "./pages/viewer";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/radar" element={<Radar />} />
+        <Route path="/viewer" element={<Viewer />} />
       </Routes>
     </Router>
   );

@@ -1,5 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cors from "cors";
+
 import { run } from "./db.js";
 import technologyRoutes from "./routes/technologies.js";
 
@@ -7,6 +9,7 @@ const app = express();
 const PORT = 8080;
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello World, MongoDB is connected!");

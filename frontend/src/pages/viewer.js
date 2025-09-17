@@ -1,12 +1,12 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
-const Home = () => {
+const Viewer = () => {
   return (
     <Box sx={{ display: "flex" }}>
-      <Typography variant="h4">Welcome to Technology Radar</Typography>
+      <Typography variant="h4">Technology radar viewer</Typography>
     </Box>
   );
 };
 
-export default Home;
+export default Viewer;

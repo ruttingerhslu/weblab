@@ -1,21 +1,28 @@
-import React from "react";
-import { Nav, NavLink, NavMenu } from "./NavbarElements";
+import * as React from "react";
+import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
-const Navbar = () => {
+export default function Navbar() {
   return (
-    <>
-      <Nav>
-        <NavMenu>
-          <NavLink to="/admin" activeStyle>
-            Admin
-          </NavLink>
-          <NavLink to="/radar" activeStyle>
-            Technology radar
-          </NavLink>
-        </NavMenu>
-      </Nav>
-    </>
-  );
-};
+    <AppBar position="static">
+      <Toolbar>
+        <Typography
+          variant="h6"
+          component={RouterLink}
+          to="/"
+          sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}
+        >
+          Technology Radar
+        </Typography>
 
-export default Navbar;
+        {/* Links */}
+        <Button color="inherit" component={RouterLink} to="/admin">
+          Admin
+        </Button>
+        <Button color="inherit" component={RouterLink} to="/viewer">
+          Viewer
+        </Button>
+      </Toolbar>
+    </AppBar>
+  );
+}
