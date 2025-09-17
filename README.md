@@ -1,10 +1,11 @@
 # WEBLAB: Technologie-Radar
 
-This project is part of the HSLU course WEBLAB. For the assignment, I chose the proposed  _[Technologie Radar](https://github.com/web-programming-lab/web-programming-lab-projekt/blob/main/Technologie-Radar.md)_ outline. 
+This project is part of the HSLU course WEBLAB. For the assignment, I chose the proposed  _[Technologie Radar](https://github.com/web-programming-lab/web-programming-lab-projekt/blob/main/Technologie-Radar.md)_ outline.
 
 ## Contents
 
 - [Architecture documentation](./docs/architecture.md)
+- [Kanban Board](https://github.com/users/ruttingerhslu/projects/2)
 
 
 ## Tech Stack
