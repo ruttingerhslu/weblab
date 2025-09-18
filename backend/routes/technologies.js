@@ -1,9 +1,11 @@
 import express from "express";
+
+import authorize from "../middleware/authorize.js";
 import Technology from "../models/technology.js";
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", authorize("admin"), async (req, res) => {
   try {
     const technology = new Technology(req.body);
     const saved = await technology.save();

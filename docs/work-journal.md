@@ -1,18 +1,15 @@
-# Arbeitsjournal
+# Work Journal
 
-## 02.09.25
-1h; Initialize git repository
+| Date     | Task                                    | Time |
+|----------|-----------------------------------------|------|
+| 02.09.25 | Initialize git repository               | 1h   |
+| 04.09.25 | arc42 docs + frontend/backend setup     | 2h   |
+| 16.09.25 | Kanban board + tech component           | 1h   |
+|          | Initial pages & navigation              | 1h   |
+|          | MongoDB cluster + connection            | 2h   |
+| 17.09.25 | Post & get requests for technology      | 2h   |
+|          | Admin dashboard + add tech form         | 1h   |
+|          | User authorization w/ JWT               | 2h   |
+| 18.09.25 | Login/register w/ roles                 | 1h   |
 
-## 04.09.25
-2h; Initial setup of arc42 documentation and initial frontend/backend setup
-
-## 16.09.25
-1h; kanban board creation, create component for registering technologies
-1h; initial pages setup with navigation
-2h; initial MongoDB setup with Cluster and connection
-
-## 17.09.25
-2h; implement post and get requests for technology
-1h; implement admin dashboard and from for adding technology
-
-TOTAL: 10h
+**TOTAL: 13h**
