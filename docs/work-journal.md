@@ -12,5 +12,6 @@
 |          | User authorization w/ JWT               | 2h   |
 | 18.09.25 | Login/register w/ roles (backend)       | 2h   |
 | 19.09.25 | Login/register w/ roles (frontend)      | 3h   |
+|          | Initial tech radar with data            | 2h   |
 
-**TOTAL: 17h**
+**TOTAL: 19h**
