@@ -20,7 +20,11 @@ const Login = () => {
         const decoded = jwtDecode(token);
 
         if (decoded.exp * 1000 > Date.now()) {
-          navigate("/viewer");
+          if (decoded.role === "admin") {
+            navigate("/admin");
+          } else {
+            navigate("/viewer");
+          }
         }
       } catch (err) {
         console.warn("Invalid stored token, ignoring");
@@ -48,7 +52,12 @@ const Login = () => {
 
       localStorage.setItem("token", data.token);
 
-      navigate("/viewer");
+      const decoded = jwtDecode(data.token);
+      if (decoded.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/viewer");
+      }
     } catch (err) {
       console.error(err);
       alert("Invalid credentials");
