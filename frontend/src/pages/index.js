@@ -1,11 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Navigate } from "react-router-dom";
 
 const Home = () => {
-  return (
-    <Box sx={{ display: "flex" }}>
-      <Typography variant="h4">Welcome to Technology Radar</Typography>
-    </Box>
-  );
+  return <Navigate to="/login" replace />;
 };
 
 export default Home;

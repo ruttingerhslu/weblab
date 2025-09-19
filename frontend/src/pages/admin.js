@@ -9,6 +9,8 @@ import {
   Stack,
 } from "@mui/material";
 
+import Navbar from "../components/Navbar";
+
 const Admin = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -28,9 +30,13 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch("http://localhost:8080/technologies", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
         body: JSON.stringify(formData),
       });
       if (!res.ok) throw new Error("Failed to add technology");
@@ -51,67 +57,70 @@ const Admin = () => {
   };
 
   return (
-    <Box sx={{ p: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Admin Dashboard
-      </Typography>
+    <div>
+      <Navbar />
+      <Box sx={{ p: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          Admin Dashboard
+        </Typography>
 
-      <Card sx={{ maxWidth: 600, mt: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            Add New Technology
-          </Typography>
+        <Card sx={{ maxWidth: 600, mt: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Add New Technology
+            </Typography>
 
-          <form onSubmit={handleSubmit}>
-            <Stack spacing={2}>
-              <TextField
-                label="Name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-              <TextField
-                label="Category"
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                required
-              />
-              <TextField
-                label="Maturity"
-                name="maturity"
-                value={formData.maturity}
-                onChange={handleChange}
-                required
-              />
-              <TextField
-                label="Description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                required
-                multiline
-                rows={4}
-              />
-              <TextField
-                label="Classification"
-                name="classification"
-                value={formData.classification}
-                onChange={handleChange}
-                multiline
-                rows={4}
-                required
-              />
+            <form onSubmit={handleSubmit}>
+              <Stack spacing={2}>
+                <TextField
+                  label="Name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+                <TextField
+                  label="Category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  required
+                />
+                <TextField
+                  label="Maturity"
+                  name="maturity"
+                  value={formData.maturity}
+                  onChange={handleChange}
+                  required
+                />
+                <TextField
+                  label="Description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                  multiline
+                  rows={4}
+                />
+                <TextField
+                  label="Classification"
+                  name="classification"
+                  value={formData.classification}
+                  onChange={handleChange}
+                  multiline
+                  rows={4}
+                  required
+                />
 
-              <Button variant="contained" type="submit">
-                Add Technology
-              </Button>
-            </Stack>
-          </form>
-        </CardContent>
-      </Card>
-    </Box>
+                <Button variant="contained" type="submit">
+                  Add Technology
+                </Button>
+              </Stack>
+            </form>
+          </CardContent>
+        </Card>
+      </Box>
+    </div>
   );
 };
 
