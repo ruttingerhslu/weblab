@@ -10,6 +10,7 @@
 | 17.09.25 | Post & get requests for technology      | 2h   |
 |          | Admin dashboard + add tech form         | 1h   |
 |          | User authorization w/ JWT               | 2h   |
-| 18.09.25 | Login/register w/ roles                 | 1h   |
+| 18.09.25 | Login/register w/ roles (backend)       | 2h   |
+| 19.09.25 | Login/register w/ roles (frontend)      | 3h   |
 
-**TOTAL: 13h**
+**TOTAL: 17h**

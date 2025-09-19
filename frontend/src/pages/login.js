@@ -40,7 +40,6 @@ const Login = () => {
         email: params.get("email"),
         password: params.get("password"),
       });
-      console.log(dataJSON);
       const res = await fetch("http://localhost:8080/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
