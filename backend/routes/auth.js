@@ -2,11 +2,13 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+import authorize from "../middleware/authorize.js";
+
 import User from "../models/user.js";
 
 const router = express.Router();
 
-router.post("/register", async (req, res) => {
+router.post("/register", authorize("admin"), async (req, res) => {
   try {
     const { email, password, role } = req.body;
     let user = await User.findOne({ email });
