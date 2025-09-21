@@ -13,5 +13,7 @@
 | 18.09.25 | Login/register w/ roles (backend)       | 2h   |
 | 19.09.25 | Login/register w/ roles (frontend)      | 3h   |
 |          | Initial tech radar with data            | 2h   |
+| 21.09.25 | Clean up frontend architecture          | 2h   |
+|          | Published/unpublished tech in form      | 2h   |
 
-**TOTAL: 19h**
+**TOTAL: 23h**

@@ -8,6 +8,7 @@ import {
   Stack,
   FormControlLabel,
   Checkbox,
+  MenuItem,
 } from "@mui/material";
 import { addTechnology } from "../api/technology";
 
@@ -18,7 +19,15 @@ export default function TechForm() {
     classification: "",
     maturity: "",
     category: "",
+    published: true,
   });
+
+  const handlePublishChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      published: e.target.checked,
+    }));
+  };
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -40,12 +49,14 @@ export default function TechForm() {
         classification: "",
         maturity: "",
         category: "",
+        published: true,
       });
     } catch (err) {
       console.error(err);
       alert("Error adding technology.");
     }
   };
+
   return (
     <Card sx={{ maxWidth: 600, mt: 3 }}>
       <CardContent>
@@ -63,19 +74,39 @@ export default function TechForm() {
               required
             />
             <TextField
+              select
               label="Category"
               name="category"
               value={formData.category}
               onChange={handleChange}
               required
-            />
+            >
+              {[
+                "Techniques",
+                "Tools",
+                "Platforms",
+                "Languages & Frameworks",
+              ].map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </TextField>
+
             <TextField
+              select
               label="Maturity"
               name="maturity"
               value={formData.maturity}
               onChange={handleChange}
-              required
-            />
+              required={formData.published} // only required if set to publish
+            >
+              {["Assess", "Trial", "Adopt", "Hold"].map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </TextField>
             <TextField
               label="Description"
               name="description"
@@ -92,10 +123,15 @@ export default function TechForm() {
               onChange={handleChange}
               multiline
               rows={4}
-              required
+              required={formData.published} // only required if set to publish
             />
             <FormControlLabel
-              control={<Checkbox />}
+              control={
+                <Checkbox
+                  checked={formData.published}
+                  onChange={handlePublishChange}
+                />
+              }
               label="Publish technology"
             />
             <Button variant="contained" type="submit">

@@ -14,7 +14,11 @@ const technologySchema = new mongoose.Schema({
   maturity: {
     type: String,
     enum: ["Assess", "Trial", "Adopt", "Hold"],
-    required: true,
+    required: function () {
+      return this.published === true; // only required if published
+    },
+    default: null,
+    set: (v) => (v === "" ? null : v),
   },
   description: {
     type: String,
@@ -22,6 +26,14 @@ const technologySchema = new mongoose.Schema({
   },
   classification: {
     type: String,
+    required: function () {
+      return this.published === true; // only required if published
+    },
+    default: null,
+    set: (v) => (v === "" ? null : v),
+  },
+  published: {
+    type: Boolean,
     required: true,
   },
   createdAt: {
