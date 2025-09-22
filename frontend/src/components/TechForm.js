@@ -20,7 +20,7 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
       classification: "",
       maturity: "",
       category: "",
-      published: false,
+      publish: false,
     },
   );
 
@@ -33,7 +33,7 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
   const handlePublishChange = (e) => {
     setFormData((prev) => ({
       ...prev,
-      published: e.target.checked,
+      publish: e.target.checked,
     }));
   };
 
@@ -63,7 +63,7 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
         classification: "",
         maturity: "",
         category: "",
-        published: false,
+        publish: false,
       });
 
       onSuccess?.();
@@ -115,7 +115,7 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
               name="maturity"
               value={formData.maturity}
               onChange={handleChange}
-              required={formData.published} // only required if set to publish
+              required={formData.publish} // only required if set to publish
             >
               {["Assess", "Trial", "Adopt", "Hold"].map((option) => (
                 <MenuItem key={option} value={option}>
@@ -139,12 +139,12 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
               onChange={handleChange}
               multiline
               rows={4}
-              required={formData.published} // only required if set to publish
+              required={formData.publish} // only required if set to publish
             />
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={formData.published}
+                  checked={formData.publish}
                   onChange={handlePublishChange}
                 />
               }

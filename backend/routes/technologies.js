@@ -8,7 +8,11 @@ const router = express.Router();
 
 router.post("/", authorize("admin"), async (req, res) => {
   try {
-    const technology = new Technology(req.body);
+    const { publish, ...rest } = req.body;
+    const technology = new Technology({
+      ...rest,
+      publishedAt: publish ? new Date() : null,
+    });
     const saved = await technology.save();
     res.status(201).json(saved);
   } catch (err) {
@@ -18,10 +22,16 @@ router.post("/", authorize("admin"), async (req, res) => {
 
 router.put("/:id", authorize("admin"), async (req, res) => {
   try {
+    const { publish, ...rest } = req.body;
+
     const updated = await Technology.findByIdAndUpdate(
       req.params.id,
-      { ...req.body, updatedAt: Date.now() },
-      { new: true, runValidators: true }, // return updated doc, validate against schema
+      {
+        ...rest,
+        publishedAt: publish ? new Date() : null,
+        updatedAt: new Date(),
+      },
+      { new: true, runValidators: true },
     );
 
     if (!updated) {

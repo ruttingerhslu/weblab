@@ -15,7 +15,7 @@ const technologySchema = new mongoose.Schema({
     type: String,
     enum: ["Assess", "Trial", "Adopt", "Hold"],
     required: function () {
-      return this.published === true; // only required if published
+      return this.publishedAt !== null; // only required if published
     },
     default: null,
     set: (v) => (v === "" ? null : v),
@@ -27,14 +27,10 @@ const technologySchema = new mongoose.Schema({
   classification: {
     type: String,
     required: function () {
-      return this.published === true; // only required if published
+      return this.publishedAt !== null; // only required if published
     },
     default: null,
     set: (v) => (v === "" ? null : v),
-  },
-  published: {
-    type: Boolean,
-    required: true,
   },
   createdAt: {
     type: Date,
@@ -48,13 +44,6 @@ const technologySchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
-});
-
-technologySchema.pre("save", function (next) {
-  if (this.published && !this.publishedAt) {
-    this.publishedAt = new Date();
-  }
-  next();
 });
 
 export default mongoose.model("Technology", technologySchema);
