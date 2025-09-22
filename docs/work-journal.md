@@ -19,4 +19,4 @@
 |          | Edit technology using form and put req  | 2h   |
 |          | Add logging of admin login + UI changes | 1h   |
 
-**TOTAL: 26h**
+**TOTAL: 27h**
