@@ -26,7 +26,10 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
 
   useEffect(() => {
     if (initialData) {
-      setFormData(initialData);
+      setFormData({
+        ...initialData,
+        publish: initialData.publishedAt ? true : false,
+      });
     }
   }, [initialData]);
 
@@ -144,7 +147,8 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={formData.publish}
+                  checked={formData.publish || false}
+                  disabled={!!formData.publishedAt}
                   onChange={handlePublishChange}
                 />
               }
