@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import authorize from "../middleware/authorize.js";
 
 import User from "../models/user.js";
+import LoginLog from "../models/loginLog.js";
 
 const router = express.Router();
 
@@ -45,6 +46,19 @@ router.post("/login", async (req, res) => {
         expiresIn: "1h",
       },
     );
+
+    if (user.role === "admin") {
+      try {
+        await LoginLog.create({
+          userId: user._id,
+          username: user.username || user.email, // fallback if no username
+          ipAddress: req.ip,
+          userAgent: req.get("User-Agent"),
+        });
+      } catch (logErr) {
+        console.error("Failed to log admin login:", logErr.message);
+      }
+    }
 
     res.status(200).json({ token });
   } catch (error) {

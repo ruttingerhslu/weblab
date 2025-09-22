@@ -112,27 +112,11 @@ export default function Admin() {
 
         {/* Add/Edit modal */}
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-          <DialogTitle>
-            {editing ? "Edit Technology" : "Add New Technology"}
-            <IconButton
-              aria-label="close"
-              onClick={handleClose}
-              sx={{
-                position: "absolute",
-                right: 8,
-                top: 8,
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          </DialogTitle>
-          <DialogContent>
-            <TechForm
-              initialData={editing}
-              title={editing ? "Edit Technology" : "Add New Technology"}
-              onSuccess={handleFormSuccess}
-            />
-          </DialogContent>
+          <TechForm
+            initialData={editing}
+            title={editing ? "Edit Technology" : "Add New Technology"}
+            onSuccess={handleFormSuccess}
+          />
         </Dialog>
       </Box>
     </div>

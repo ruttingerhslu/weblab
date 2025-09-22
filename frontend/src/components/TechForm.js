@@ -77,7 +77,7 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
   };
 
   return (
-    <Card sx={{ maxWidth: 600, mt: 3 }}>
+    <Card sx={{ maxWidth: 600 }}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
           {title}
