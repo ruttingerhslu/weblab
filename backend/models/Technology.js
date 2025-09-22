@@ -44,6 +44,10 @@ const technologySchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  updatedAt: {
+    type: Date,
+    default: null,
+  },
 });
 
 technologySchema.pre("save", function (next) {

@@ -20,7 +20,7 @@ router.put("/:id", authorize("admin"), async (req, res) => {
   try {
     const updated = await Technology.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      { ...req.body, updatedAt: Date.now() },
       { new: true, runValidators: true }, // return updated doc, validate against schema
     );
 
