@@ -15,5 +15,7 @@
 |          | Initial tech radar with data            | 2h   |
 | 21.09.25 | Clean up frontend architecture          | 2h   |
 |          | Published/unpublished tech in form      | 2h   |
+| 22.09.25 | List technologies in admin dashboard    | 1h   |
+|          | Edit technology using form and put req  | 2h   |
 
-**TOTAL: 23h**
+**TOTAL: 26h**

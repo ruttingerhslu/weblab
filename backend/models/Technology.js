@@ -40,6 +40,17 @@ const technologySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  publishedAt: {
+    type: Date,
+    default: null,
+  },
+});
+
+technologySchema.pre("save", function (next) {
+  if (this.published && !this.publishedAt) {
+    this.publishedAt = new Date();
+  }
+  next();
 });
 
 export default mongoose.model("Technology", technologySchema);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Typography,
   TextField,
@@ -10,17 +10,25 @@ import {
   Checkbox,
   MenuItem,
 } from "@mui/material";
-import { addTechnology } from "../api/technology";
+import { addTechnology, updateTechnology } from "../api/technology";
 
-export default function TechForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    classification: "",
-    maturity: "",
-    category: "",
-    published: true,
-  });
+export default function TechForm({ initialData = null, onSuccess, title }) {
+  const [formData, setFormData] = useState(
+    initialData || {
+      name: "",
+      description: "",
+      classification: "",
+      maturity: "",
+      category: "",
+      published: false,
+    },
+  );
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
 
   const handlePublishChange = (e) => {
     setFormData((prev) => ({
@@ -40,20 +48,28 @@ export default function TechForm() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const data = await addTechnology(token, formData);
-      console.log("✅ Added:", data);
-      alert("Technology added successfully!");
+      if (formData._id) {
+        // update existing
+        await updateTechnology(token, formData._id, formData);
+      } else {
+        // create new
+        await addTechnology(token, formData);
+      }
+
+      alert("✅ Saved successfully!");
       setFormData({
         name: "",
         description: "",
         classification: "",
         maturity: "",
         category: "",
-        published: true,
+        published: false,
       });
+
+      onSuccess?.();
     } catch (err) {
       console.error(err);
-      alert("Error adding technology.");
+      alert("Error saving technology.");
     }
   };
 
@@ -61,7 +77,7 @@ export default function TechForm() {
     <Card sx={{ maxWidth: 600, mt: 3 }}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          Add New Technology
+          {title}
         </Typography>
 
         <form onSubmit={handleSubmit}>
@@ -135,7 +151,7 @@ export default function TechForm() {
               label="Publish technology"
             />
             <Button variant="contained" type="submit">
-              Add Technology
+              Save
             </Button>
           </Stack>
         </form>
