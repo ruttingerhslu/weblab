@@ -64,15 +64,15 @@ export default function Admin() {
     <div>
       <Navbar />
       <Box sx={{ p: 4 }}>
-        <Typography variant="h4" gutterBottom>
-          Admin Dashboard
-        </Typography>
+        <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+          <Typography variant="h4" gutterBottom>
+            Admin Dashboard
+          </Typography>
 
-        <Button variant="contained" sx={{ mb: 3 }} onClick={handleNew}>
-          New Technology
-        </Button>
-
-        <Divider sx={{ my: 4 }} />
+          <Button variant="contained" sx={{ mb: 3 }} onClick={handleNew}>
+            New Technology
+          </Button>
+        </Stack>
 
         <Typography variant="h6">Unpublished Technologies</Typography>
         <Stack spacing={2} sx={{ mt: 2 }}>
