@@ -1,11 +1,11 @@
-import express from "express";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+const express = require("express");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-import authorize from "../middleware/authorize.js";
+const authorize = require("../middleware/authorize.js");
 
-import User from "../models/user.js";
-import LoginLog from "../models/loginLog.js";
+const User = require("../models/user.js");
+const LoginLog = require("../models/loginLog.js");
 
 const router = express.Router();
 
@@ -66,4 +66,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

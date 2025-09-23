@@ -1,12 +1,12 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import path from "path";
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const path = require("path");
 
 dotenv.config({ path: path.resolve("../.env") });
 
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}?${process.env.MONGO_OPTIONS}`;
 
-export async function run() {
+async function run() {
   try {
     await mongoose.connect(uri);
     console.log("Connected to MongoDB Atlas");
@@ -16,3 +16,5 @@ export async function run() {
     throw err;
   }
 }
+
+module.exports = { run };

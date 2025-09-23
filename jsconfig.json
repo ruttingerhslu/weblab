@@ -1,0 +1,7 @@
+{
+  "testEnvironment": "jsdom",
+  "compilerOptions": {
+    "module": "commonjs"
+  },
+  "include": ["./"]
+}

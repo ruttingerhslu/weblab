@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const technologySchema = new mongoose.Schema({
   name: {
@@ -46,4 +46,4 @@ const technologySchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Technology", technologySchema);
+module.exports = mongoose.model("Technology", technologySchema);

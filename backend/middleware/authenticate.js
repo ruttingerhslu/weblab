@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-import path from "path";
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+const path = require("path");
 
 dotenv.config({ path: path.resolve("../.env") });
 
@@ -13,7 +13,6 @@ const authMiddleware = (req, res, next) => {
       .json({ message: "Access denied, no token provided" });
   }
 
-  // Expect format: "Bearer <token>"
   const parts = authHeader.split(" ");
   if (parts.length !== 2 || parts[0] !== "Bearer") {
     return res.status(401).json({ message: "Malformed token" });
@@ -31,4 +30,4 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-export default authMiddleware;
+module.exports = authMiddleware;

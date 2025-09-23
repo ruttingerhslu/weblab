@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const loginLogSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
@@ -8,4 +8,4 @@ const loginLogSchema = new mongoose.Schema({
   loggedInAt: { type: Date, default: Date.now, index: { expires: "90d" } },
 });
 
-export default mongoose.model("LoginLog", loginLogSchema);
+module.exports = mongoose.model("LoginLog", loginLogSchema);

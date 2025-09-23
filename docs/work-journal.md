@@ -19,5 +19,6 @@
 |          | Edit technology using form and put req  | 2h   |
 |          | Add logging of admin login + UI changes | 1h   |
 | 23.09.25 | Custom radar viewer + bulk post route   | 2h   |
+|          | Initial setup for testing backend api   | 3h   |
 
 **TOTAL: 29 h**

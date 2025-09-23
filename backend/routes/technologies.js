@@ -1,8 +1,7 @@
-import express from "express";
+const express = require("express");
 
-import authorize from "../middleware/authorize.js";
-
-import Technology from "../models/technology.js";
+const authorize = require("../middleware/authorize.js");
+const Technology = require("../models/technology.js");
 
 const router = express.Router();
 
@@ -72,4 +71,4 @@ router.post("/bulk", authorize("admin"), async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
