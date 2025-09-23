@@ -8,11 +8,7 @@ import {
   Card,
   CardContent,
   Dialog,
-  DialogTitle,
-  DialogContent,
-  IconButton,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 
 import Navbar from "../components/Navbar";
 import TechForm from "../components/TechForm";
@@ -57,8 +53,10 @@ export default function Admin() {
     fetchTechnologies();
   };
 
-  const published = technologies.filter((t) => t.published);
-  const unpublished = technologies.filter((t) => !t.published);
+  const published = technologies.filter((t) => (t.publishedAt ? true : false));
+  const unpublished = technologies.filter((t) =>
+    t.publishedAt ? false : true,
+  );
 
   return (
     <div>

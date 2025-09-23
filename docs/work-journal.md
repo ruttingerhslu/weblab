@@ -18,5 +18,6 @@
 | 22.09.25 | List technologies in admin dashboard    | 1h   |
 |          | Edit technology using form and put req  | 2h   |
 |          | Add logging of admin login + UI changes | 1h   |
+| 23.09.25 | Custom radar viewer + bulk post route   | 2h   |
 
-**TOTAL: 27h**
+**TOTAL: 29 h**
