@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  Box,
-  Typography,
-  Divider,
-  Button,
-  Stack,
-  Card,
-  CardContent,
-  Dialog,
-} from "@mui/material";
+import { Box, Typography, Divider, Button, Stack, Dialog } from "@mui/material";
 
 import Navbar from "../components/Navbar";
 import TechForm from "../components/TechForm";
+import TechList from "../components/TechList";
 import { getTechnologies } from "../api/technology";
 
 export default function Admin() {
@@ -73,42 +65,13 @@ export default function Admin() {
         </Stack>
 
         <Typography variant="h6">Unpublished Technologies</Typography>
-        <Stack spacing={2} sx={{ mt: 2 }}>
-          {unpublished.map((tech) => (
-            <Card key={tech._id}>
-              <CardContent>
-                <Typography variant="subtitle1">{tech.name}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {tech.description}
-                </Typography>
-                <Button size="small" onClick={() => handleEdit(tech)}>
-                  Edit
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </Stack>
+        <TechList technologies={unpublished} handleEdit={handleEdit}></TechList>
 
         <Divider sx={{ my: 4 }} />
 
         <Typography variant="h6">Published Technologies</Typography>
-        <Stack spacing={2} sx={{ mt: 2 }}>
-          {published.map((tech) => (
-            <Card key={tech._id}>
-              <CardContent>
-                <Typography variant="subtitle1">{tech.name}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {tech.description}
-                </Typography>
-                <Button size="small" onClick={() => handleEdit(tech)}>
-                  Edit
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </Stack>
+        <TechList technologies={published} handleEdit={handleEdit}></TechList>
 
-        {/* Add/Edit modal */}
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
           <TechForm
             initialData={editing}
