@@ -13,4 +13,5 @@ build/
 dist/
 client/.parcel-cache
 
-coverage
+coverage/
+backend/coverage
