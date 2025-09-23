@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import Navbar from "../components/Navbar";
 import TechRadar from "../components/TechRadar";
-
 import { getTechnologies } from "../api/technology";
 import { transformTechnologies } from "../utils/transform";
 
@@ -26,7 +25,7 @@ const Viewer = () => {
   return (
     <div>
       <Navbar />
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
         <TechRadar entries={entries} />
       </Box>
     </div>

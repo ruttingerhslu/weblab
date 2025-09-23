@@ -53,4 +53,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/bulk", authorize("admin"), async (req, res) => {
+  try {
+    const technologies = req.body;
+    if (!Array.isArray(technologies)) {
+      return res.status(400).json({ error: "Expected an array" });
+    }
+
+    const prepared = technologies.map(({ publish, ...rest }) => ({
+      ...rest,
+      publishedAt: publish ? new Date() : null,
+    }));
+
+    const saved = await Technology.insertMany(prepared);
+    res.status(201).json(saved);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 export default router;
