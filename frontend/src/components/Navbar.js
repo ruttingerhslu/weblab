@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Typography, Button, IconButton } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 
 function getUserRole() {

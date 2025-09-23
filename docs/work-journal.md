@@ -20,5 +20,6 @@
 |          | Add logging of admin login + UI changes | 1h   |
 | 23.09.25 | Custom radar viewer + bulk post route   | 2h   |
 |          | Initial setup for testing backend api   | 3h   |
+|          | Initial setup for testing frontend      | 2h   |
 
-**TOTAL: 29 h**
+**TOTAL: 34 h**
