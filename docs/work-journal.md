@@ -21,5 +21,6 @@
 | 23.09.25 | Custom radar viewer + bulk post route   | 2h   |
 |          | Initial setup for testing backend api   | 3h   |
 |          | Initial setup for testing frontend      | 2h   |
+| 26.09.25 | Minor refactoring and writing arch docs | 2h   |
 
-**TOTAL: 34 h**
+**TOTAL: 36 h**
