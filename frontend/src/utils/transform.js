@@ -14,7 +14,7 @@ const maturityToRing = {
 
 export function transformTechnologies(data) {
   return data
-    .filter((tech) => tech.publishedAt) // Only include published technologies
+    .filter((tech) => tech.publishedAt)
     .map((tech) => ({
       _id: tech._id,
       label: tech.name,

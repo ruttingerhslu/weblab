@@ -52,10 +52,8 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
     try {
       const token = localStorage.getItem("token");
       if (formData._id) {
-        // update existing
         await updateTechnology(token, formData._id, formData);
       } else {
-        // create new
         await addTechnology(token, formData);
       }
 
@@ -118,7 +116,7 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
               name="maturity"
               value={formData.maturity}
               onChange={handleChange}
-              required={formData.publish} // only required if set to publish
+              required={formData.publish}
             >
               {["Assess", "Trial", "Adopt", "Hold"].map((option) => (
                 <MenuItem key={option} value={option}>
@@ -142,7 +140,7 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
               onChange={handleChange}
               multiline
               rows={4}
-              required={formData.publish} // only required if set to publish
+              required={formData.publish}
             />
             <FormControlLabel
               control={

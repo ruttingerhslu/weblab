@@ -6,16 +6,11 @@ const TechRadar = ({ entries }) => {
 
   const size = 600;
   const center = size / 2;
-  const maxRadius = size / 2 - 20; // padding so dots don’t spill out
+  const maxRadius = size / 2 - 20;
 
-  const rings = 4; // 0: Adopt (innermost) ... 3: Hold (outermost)
+  const rings = 4;
   const quadrantColors = ["#ff6b6b", "#4dabf7", "#51cf66", "#fcc419"];
 
-  // Quadrant mapping (index -> corner):
-  // 0 = top-left (Techniques)
-  // 1 = top-right (Tools)
-  // 2 = bottom-left (Platforms)
-  // 3 = bottom-right (Languages)
   const quadrantAngleRanges = [
     { start: -Math.PI, end: -Math.PI / 2 }, // top-left
     { start: -Math.PI / 2, end: 0 }, // top-right
@@ -23,7 +18,7 @@ const TechRadar = ({ entries }) => {
     { start: 0, end: Math.PI / 2 }, // bottom-right
   ];
 
-  const ringLabels = ["Adopt", "Trial", "Assess", "Hold"]; // inner -> outer
+  const ringLabels = ["Adopt", "Trial", "Assess", "Hold"];
   const quadrantLabels = [
     "Techniques",
     "Tools",
@@ -60,7 +55,6 @@ const TechRadar = ({ entries }) => {
         );
       })}
 
-      {/* ring labels (top-center inside each ring band) */}
       {[...Array(rings)].map((_, i) => {
         const innerRadius = (i / rings) * maxRadius;
         const outerRadius = ((i + 1) / rings) * maxRadius;
@@ -75,7 +69,7 @@ const TechRadar = ({ entries }) => {
             sx={{
               position: "absolute",
               left: xLabel,
-              top: yLabel - 10, // small nudge upward
+              top: yLabel - 10,
               transform: "translateX(-50%)",
               fontWeight: 700,
               color: "#111",
@@ -106,51 +100,26 @@ const TechRadar = ({ entries }) => {
         }}
       />
 
-      <Typography
-        sx={{
-          position: "absolute",
-          left: center - maxRadius + 14,
-          top: center - maxRadius + 12,
-          fontWeight: 700,
-          color: "#111",
-        }}
-      >
-        {quadrantLabels[0]}
-      </Typography>
-      <Typography
-        sx={{
-          position: "absolute",
-          right: center - maxRadius + 14,
-          top: center - maxRadius + 12,
-          fontWeight: 700,
-          color: "#111",
-        }}
-      >
-        {quadrantLabels[1]}
-      </Typography>
-      <Typography
-        sx={{
-          position: "absolute",
-          left: center - maxRadius + 14,
-          bottom: center - maxRadius + 12,
-          fontWeight: 700,
-          color: "#111",
-        }}
-      >
-        {quadrantLabels[2]}
-      </Typography>
-      <Typography
-        sx={{
-          position: "absolute",
-          right: center - maxRadius + 14,
-          bottom: center - maxRadius + 12,
-          fontWeight: 700,
-          color: "#111",
-          textAlign: "right",
-        }}
-      >
-        {quadrantLabels[3]}
-      </Typography>
+      {quadrantLabels.map((label, i) => {
+        const isTop = i < 2;
+        const isLeft = i % 2 === 0;
+
+        return (
+          <Typography
+            key={i}
+            sx={{
+              position: "absolute",
+              [isLeft ? "left" : "right"]: center - maxRadius + 14,
+              [isTop ? "top" : "bottom"]: center - maxRadius + 12,
+              fontWeight: 700,
+              color: "#111",
+              textAlign: isLeft ? "left" : "right",
+            }}
+          >
+            {label}
+          </Typography>
+        );
+      })}
 
       {/* blips */}
       {publishedEntries.map((blip, idx) => {
