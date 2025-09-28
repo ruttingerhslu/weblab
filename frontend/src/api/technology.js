@@ -36,3 +36,16 @@ export async function getTechnologies(token) {
   if (!res.ok) throw new Error("Failed to fetch technologies");
   return res.json();
 }
+
+export async function getPublishedTechnologies(token) {
+  const res = await fetch("http://localhost:8080/technologies/published", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch technologies");
+  return res.json();
+}

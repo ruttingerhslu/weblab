@@ -43,9 +43,18 @@ router.put("/:id", authorize("admin"), async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", authorize("admin"), async (req, res) => {
   try {
     const technologies = await Technology.find();
+    res.json(technologies);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/published", async (req, res) => {
+    try {
+    const technologies = await Technology.find({ publishedAt: { $exists: true, $ne: null } });
     res.json(technologies);
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -2,8 +2,6 @@ import React from "react";
 import { Box, Tooltip, Typography } from "@mui/material";
 
 const TechRadar = ({ entries }) => {
-  const publishedEntries = entries.filter((e) => e.publishedAt);
-
   const size = 600;
   const center = size / 2;
   const maxRadius = size / 2 - 20;
@@ -122,7 +120,7 @@ const TechRadar = ({ entries }) => {
       })}
 
       {/* blips */}
-      {publishedEntries.map((blip, idx) => {
+      {entries.map((blip, idx) => {
         const q = Math.max(0, Math.min(3, blip.quadrant ?? 0));
         const r = Math.max(0, Math.min(rings - 1, blip.ring ?? rings - 1));
         const range = quadrantAngleRanges[q] || quadrantAngleRanges[0];
