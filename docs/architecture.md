@@ -77,9 +77,13 @@ Boundary(c1, "Technology Radar") {
         Container(c_react, "React", "Frontend application")
     }
     Boundary(c3, "Backend") {
-        Container(c_express, "Express", "Backend API")
-        Container(c_mongoose, "Mongoose", "MongoDB ORM")
-        ContainerDb(database, "Database", "MongoDB", "Stores users, technologies, logs, etc.")
+        Container_Boundary(c_node, "Node.js Runtime") {
+            Container(c_express, "Express", "Backend API")
+            Container(c_mongoose, "Mongoose", "MongoDB ODM")
+        }
+    }
+    Boundary(c_db, "Persistence") {
+        ContainerDb(database, "MongoDB", "Database", "Stores users, technologies, logs, etc.")
     }
 }
 
@@ -87,8 +91,7 @@ Rel(employeeA, c_react, "Can view technology radar")
 Rel(adminA, c_react, "Can view and manage technology radar")
 
 Rel(c_react, c_express, "Calls API", "JSON/REST")
-
-Rel(c_express, c_mongoose, "Reads/Writes")
+Rel(c_express, c_mongoose, "Uses ODM")
 Rel(c_mongoose, database, "Reads/Writes")
 
 UpdateRelStyle(employeeA, c_react, $offsetX="-100", $offsetY="-75")
@@ -96,22 +99,136 @@ UpdateRelStyle(adminA, c_react, $offsetX="0", $offsetY="-75")
 ```
 
 - *React*: SPA frontend, routing with React Router, responsive UI with MaterialUI
+- *Node.js Runtime*: container that hosts Express + Mongoose.
 - *Express*: REST API, middleware for auth/logging
 - *Mongoose*: ODM mapping between schemas and MongoDB
 - *MongoDB*: data store for users, technologies and logs
 
 ## 5.2 Level 2
 
-<!-- TODO: show logical components of the backend -->
-
 ```mermaid
 C4Component
-title Component diagram for Technology Radar Backend - API
+title Component diagram for Technology Radar Backend
+
+Container_Boundary(c_node, "Node.js Runtime") {
+    Container(c_routes, "Routes", "Component", "Define endpoints and forward to middleware/models")
+    Container(c_middleware, "Middleware", "Component", "Cross-cutting concerns (authentication, authorization)")
+    Container(c_models, "Mongoose Models", "Component", "ODM schemas for User, Technology, Log")
+}
+Boundary(c_db, "Persistence") {
+    ContainerDb(database, "MongoDB", "Database", "Stores users, technologies, logs")
+}
+
+Rel(c_routes, c_middleware, "Applies")
+Rel(c_routes, c_models, "Uses for persistence")
+Rel(c_models, database, "Reads/Writes")
+
+UpdateRelStyle(c_routes, c_models, $offsetX="-70", $offsetY="100")
+
 ```
+- *Routes*: Defines [API endpoints](./architecture.md#api-endpoints). Forwards requests through middleware to Mongoose models
+- *Middleware*: Express midddleware function that handle authentication and authorization using JWT tokens
+- *Mongoose models*: Persistence abstraction for data integrity, schemas defined by models used by routes
+- *MongoDB*: persistent data store for all domain entities, written to using Mongoose with API key handled as environment variable 
 
 # 6. Runtime View
+The following scenarios help to illustrate the inner proceedings of the system. Any mention of *handlers* allude to the express routes defined in the backend/routes folder.
 
-<!-- TODO: show sequence of interactions for key use cases -->
+## 6.1 Login
+The following scenario is a user logging in using their credentials.
+```mermaid
+sequenceDiagram
+    participant User
+    participant React as React (Frontend)
+    participant Routes as Express Routes
+    participant UserModel as User Model
+    participant DB as MongoDB
+
+    User->>React: Enter email + password
+    React->>Routes: POST /auth/login
+    Routes->>UserModel: Find user by email
+    UserModel->>DB: Query user
+    DB-->>UserModel: User record
+    UserModel-->>Routes: Auth success + role
+    Routes-->>React: 200 OK + JWT
+    React-->>User: Store JWT in localStorage
+```
+
+**Explanation:**
+1. User enters credentials into login form
+2. *React* sends ``POST /auth/login`` with email + password
+3. Express receives the request and forward it to login handler
+4. Handler calls User Model to get user by email
+5. Model queries DB and receives user data
+6. If credentials are valid, JWT is created and returned as response
+7. React stores the JWT in local storage
+
+
+## 6.2 Add new technology
+A typical scenario of an admin is adding a new technology using the form provided by the UI.
+
+```mermaid
+sequenceDiagram
+    participant Admin
+    participant React as React (Frontend)
+    participant Routes as Express Routes
+    participant Middleware as Middleware
+    participant Models as Mongoose Models
+    participant DB as MongoDB
+
+    Admin->>React: Submit "Add technology" form
+    React->>Routes: POST /technologies {data, JWT}
+    Routes->>Middleware: Run authentication, validation, logging
+    Middleware-->>Routes: OK (JWT valid, role valid)
+    Routes->>Models: new Technology(data).save()
+    Models->>DB: Insert document
+    DB-->>Models: Insert successful
+    Models-->>Routes: Return created technology
+    Routes-->>React: 201 Created + saved technology JSON
+    React-->>Admin: UI notifies user, technology has been saved
+```
+**Explanation:**
+1. *Admin* (already logged in) submits "Add technology" form in React, after providing the necessary data.
+2. *React* sends a ``POST /technologies`` request with JSON body and JWT token.
+3. *Express* receives the request and routes it to the appropriate handler.
+4. *Middleware* authenticates JWT token and resolves its role to authorize the access.
+5. After successful middleware pass, the handler creates a new object with the request data and calls Mongoose (``.save()``).
+6. *Mongoose* saves the new document into the correct MongoDB collection
+7. *MongoDB* confirms the insert
+8. *Mongoose* returns the saved object to the route.
+9. The *Express* handler responds with ``201 created`` and JSON of the saved object.
+10. *React* notifies its user that the technology was saved.
+
+### 6.3 Viewing published technologies
+A user (employee) views the published technologies by visiting ``/viewer`` after having logged in.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant React as React (Frontend)
+    participant Routes as Express Routes
+    participant Middleware as Auth Middleware
+    participant TechModel as Technology Model
+    participant DB as MongoDB
+
+    User->>React: Request to view radar
+    React->>Routes: GET /technologies/published {JWT}
+    Routes->>Middleware: Verify JWT
+    Middleware-->>Routes: Token valid
+    Routes->>TechModel: Technology.find({publishedAt: !null});
+    TechModel->>DB: Query all published technologies
+    DB-->>TechModel: List of published technologies
+    TechModel-->>Routes: Return data
+    Routes-->>React: 200 OK + JSON
+    React-->>User: Render radar visualization
+```
+**Explanation:**
+1. User visits ``/viewer``.
+2. *React* sends ``GET /technologies/published`` with JWT in the header
+3. *Express Routes* check the JWT with *Auth Middleware*
+4. If valid, the Technology Model fetches all entries from MongoDB that have published date
+5. Data is returned as JSON to React
+6. React renders the data visualization
 
 # 7. Deployment View
 
