@@ -231,8 +231,21 @@ sequenceDiagram
 6. React renders the data visualization
 
 # 7. Deployment View
+Currently, the app runs locally on the developer laptop with React dev server, Node.js/Express backend, and MongoDB Cloud.
 
-<!-- TODO: document environment, infrastructure (diagram) -->
+```mermaid
+C4Deployment
+title Deployment diagram for Technology Radar
+
+Deployment_Node(dev, "Developer Laptop", "Local machine") {
+    Container(reactDev, "React Dev Server", "Node.js", "Serves frontend during development")
+    Container(expressApp, "Express API", "Node.js", "Backend service")
+    ContainerDb(cloudMongo, "MongoDB", "Database", "Stores technologies and users")
+}
+
+Rel(reactDev, expressApp, "Calls API")
+Rel(expressApp, cloudMongo, "Reads/Writes")
+```
 
 # 8. Concepts
 
@@ -244,11 +257,12 @@ This list summarizes all endpoints, that are available to either admins or emplo
 
 | Endpoint | Method | Description | Role |
 | --- | - | --------- | -- |
-| ``/technologies`` | GET |list all technologies | admin / employee |
+| ``/technologies`` | GET |list all technologies | admin |
+| ``/technologies/published`` | GET | list all published technologies | admin / user
 | ``/technologies`` | POST | create new technology | admin |
 | ``/technologies/:id`` | PUT | edit exisiting technology | admin |
-| ``/auth/login`` | POST | login to receive JWT token (incl. role) | admin / employee |
-| ``/auth/register`` | POST | register new user (admin or employee) | admin |
+| ``/auth/login`` | POST | login to receive JWT token (incl. role) | admin / user |
+| ``/auth/register`` | POST | register new user (admin or user) | admin |
 
 
 # 9. Architecture Decisions
