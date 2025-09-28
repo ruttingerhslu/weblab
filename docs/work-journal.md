@@ -23,7 +23,8 @@
 |          | Initial setup for testing frontend      | 2h   |
 | 26.09.25 | Minor refactoring and write doc         | 2h   |
 | 28.09.25 | published endpoint for protected access | 1h   |
-|          | add building block view (1 & 2)      | 1h   |
+|          | add building block view (1 & 2)         | 1h   |
 |          | add 3 scenarios to runtime view         | 1h   |
+|          | adding techstack, JWT and Log ADRs      | 1h   |
 
-**TOTAL: 39 h**
+**TOTAL: 40h**

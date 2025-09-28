@@ -126,7 +126,7 @@ Rel(c_models, database, "Reads/Writes")
 UpdateRelStyle(c_routes, c_models, $offsetX="-70", $offsetY="100")
 
 ```
-- *Routes*: Defines [API endpoints](./architecture.md#api-endpoints). Forwards requests through middleware to Mongoose models
+- *Routes*: Defines [API endpoints](./architecture.md#82-api-endpoints). Forwards requests through middleware to Mongoose models
 - *Middleware*: Express midddleware function that handle authentication and authorization using JWT tokens
 - *Mongoose models*: Persistence abstraction for data integrity, schemas defined by models used by routes
 - *MongoDB*: persistent data store for all domain entities, written to using Mongoose with API key handled as environment variable 
@@ -251,16 +251,21 @@ Rel(expressApp, cloudMongo, "Reads/Writes")
 
 <!-- TODO: domain model, cross-cutting concepts, radar visualization -->
 
-## API endpoints
+## 8.1 Domain models
 
-This list summarizes all endpoints, that are available to either admins or employees.
+
+
+## 8.2 API endpoints
+
+This list summarizes all endpoints, that are available to either admins or users.
 
 | Endpoint | Method | Description | Role |
 | --- | - | --------- | -- |
 | ``/technologies`` | GET |list all technologies | admin |
 | ``/technologies/published`` | GET | list all published technologies | admin / user
-| ``/technologies`` | POST | create new technology | admin |
+| ``/technologies`` | POST | add new technology | admin |
 | ``/technologies/:id`` | PUT | edit exisiting technology | admin |
+| ``/technologies/bulk`` | POST | add multiple technologies at once | admin
 | ``/auth/login`` | POST | login to receive JWT token (incl. role) | admin / user |
 | ``/auth/register`` | POST | register new user (admin or user) | admin |
 
@@ -274,8 +279,6 @@ The following [Architecture Decision Records (ADR's)](https://adr.github.io/) we
 1. [MERN Techstack](./decisions/01-techstack.md)
 2. [JWT](./decisions/02-jwt.md)
 3. [Logging in DB](./decisions/03-mongodb_logs.md)
-4. [React](./decisions/04-react.md)
-5. [Deployment](./decisions/05-deployment.md)
 
 # 10. Quality scenarios
 
