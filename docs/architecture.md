@@ -11,14 +11,18 @@ Purpose of this documentation is to provide an overview of the system for develo
 # 2. Architecture constraints
 
 ## 2.1 Technical constraints
-As mentioned [here](../README.md#tech-stack),  the MERN stack was chosen for this project. Reason behind this decision, was the vast amount of documentation on the usage of these combining these frameworks and having done little to no experience within those specific frameworks. 
+The only technical constraints were determined in the beginnings of the project as part of the assignment to choose a dedicated techstack beforehand ([ADR](./decisions/01-techstack.md)).
+
+Additionally, some technical quality requirements were given along with the outline of this project and were taken up in the [quality chapter](./architecture.md#10-quality).
+
+As a consequence of grading, the documented commands should be able to run on other systems.
 
 ## 2.2 Organizational constraints
 Scope constraint for this project is set to ~60 hours of work, which includes implementing the project, CI/CD and documentation. Every activity is written down in a [work journal](./work-journal.md).
 
 Once finished, the project will be turned in as a git repository.
 
-Additionally, the work should be critically reflected including drawing a conclusion.
+Additionally, the work should be critically reflected including conclusion.
 
 # 3. System context and scope
 
@@ -49,20 +53,18 @@ A **CTO** or **Tech Lead** is anyone who is responsible for handling data within
 
 # 4. Solution Strategy
 
-| Goal/Requirements | Architectural Approach | Details |
-| ------------- | ------------- | ------  |
-| Viewer should be optimized for mobile/tablet view | Responsive design, using libraries built for responsiveness | |
-| Viewer should be loaded within 1s, when using 4G connection |  | |
-| Administration login should be recorded | Saving login by admins to DB |
-| Security | JWT for authentication, environment variables in deployment  |
-| Scalability* |  |
-| Availability* |  |
+| Goal/Requirements | Approach |
+| ------------- | ------------- |
+| Desktop/Mobile UI | Responsive design with MaterialUI |
+| Fast load times | Preloading, caching, code splitting |
+| Auditability | Log admin logins in DB |
+| Security | JWT, env vars, bcrypt  |
 | Maintainability | modular React components, RESTful API design |
-| Accessbility| included within MaterialUI |
-
-*limited due to DB free plan
+| Scalability/Availability | Limited (free-tier) MongoDB |
+| Accessbility| MaterialUI components with ARIA compliance |
 
 # 5. Building Block View
+The following container diagram shows the top-level decomposition of the technology radar system.
 
 ## 5.1 Level 1
 ```mermaid
@@ -105,6 +107,7 @@ UpdateRelStyle(adminA, c_react, $offsetX="0", $offsetY="-75")
 - *MongoDB*: data store for users, technologies and logs
 
 ## 5.2 Level 2
+The following diagram shows the inner workings of the technology radar express backend with its routes, middleware and usage of ODM.
 
 ```mermaid
 C4Component
@@ -280,21 +283,22 @@ The following [Architecture Decision Records (ADR's)](https://adr.github.io/) we
 2. [JWT](./decisions/02-jwt.md)
 3. [Logging in DB](./decisions/03-mongodb_logs.md)
 
-# 10. Quality scenarios
+# 10. Quality
 
-## 10.1 Quality Tree
-| Quality | Description | Scenario |
-| ------------- | ---- | ---|
-| Performance | System responds to read requests within 1s on 4G mobile network | SC1 |
-| Security | Only admins can create/update/delete technologies, verified via JWT token | SC2 |
-| Reliability |  | SC3 |
-| Usability | | SC4 |
-| Testability || SC5 |
+## 10.1 Quality Requirements
+| Quality     | Description                                         | Scenario |
+| ----------- | --------------------------------------------------- | --- |
+| Performance | Radar loads quickly on typical mobile connections   | SC1 |
+| Security    | Only admins can modify technologies                 | SC2 |
+| Reliability | System handles DB downtime gracefully	            | SC3 |
+| Usability   | Radar usable on mobile without horizontal scrolling | SC4 |
+| Testability | API routes covered by automated tests (≥70%)        | SC5 |
 
 ## 10.2 Quality Scenarios
-| ID      | Scenario      |
-| -- | ------------- |
-| SC1 |  |
-| SC2 | Cell 1, Row 2 |
-
-
+| ID  | Scenario        |
+| --- | --------------- |
+| SC1 |	Radar view loads in <1s on 4G network.
+| SC2 |	Only admins can create/update/delete technologies (JWT-verified).
+| SC3 |	If DB is unavailable, API responds with error code and stays operational.
+| SC4 |	User can access radar on mobile without horizontal scrolling.
+| SC5 |	Automated Jest/Supertest coverage ≥70% on backend routes.

@@ -26,5 +26,6 @@
 |          | add building block view (1 & 2)         | 1h   |
 |          | add 3 scenarios to runtime view         | 1h   |
 |          | adding techstack, JWT and Log ADRs      | 1h   |
+| 29.09.25 | doc on solution strat., quality, etc.   | 1h   |
 
-**TOTAL: 40h**
+**TOTAL: 41h**
