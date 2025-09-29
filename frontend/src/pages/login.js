@@ -9,7 +9,7 @@ import { login } from "../api/auth";
 import { isTokenValid, getUserRole } from "../utils/jwt";
 
 const theme = createTheme();
-const providers = [{ id: "credentials" }];
+const providers = [{ id: "credentials", name: "Username and password" }];
 
 const Login = () => {
   const navigate = useNavigate();
