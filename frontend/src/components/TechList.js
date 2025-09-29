@@ -1,18 +1,36 @@
-import { Typography, Button, Stack, Card, CardContent } from "@mui/material";
+import {
+  Typography,
+  IconButton,
+  Stack,
+  Card,
+  CardContent,
+  Box,
+} from "@mui/material";
 
-export default function TechList({ technologies, handleEdit }) {
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+
+export default function TechList({ technologies, handleEdit, handleDelete }) {
   return (
     <Stack spacing={2} sx={{ mt: 2 }}>
       {technologies.map((tech) => (
         <Card key={tech._id}>
           <CardContent>
-            <Typography variant="subtitle1">{tech.name}</Typography>
-            <Typography variant="body2" color="text.secondary">
-              {tech.description}
-            </Typography>
-            <Button size="small" onClick={() => handleEdit(tech)}>
-              Edit
-            </Button>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Typography variant="subtitle1">{tech.name}</Typography>
+              <Box>
+                <IconButton size="small" onClick={() => handleEdit(tech)}>
+                  <EditIcon fontSize="small" />
+                </IconButton>
+                <IconButton size="small" onClick={() => handleDelete(tech)}>
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </Box>
+            </Box>
           </CardContent>
         </Card>
       ))}

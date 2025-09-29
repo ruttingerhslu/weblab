@@ -28,5 +28,6 @@
 |          | adding techstack, JWT and Log ADRs      | 1h   |
 | 29.09.25 | doc on solution strat., quality, etc.   | 1h   |
 |          | Responsive + accessible radar viewer    | 3h   |
+|          | Delete button on admin dashboard        | 1h   |
 
-**TOTAL: 44h**
+**TOTAL: 45h**

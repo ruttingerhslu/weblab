@@ -43,6 +43,19 @@ router.put("/:id", authorize("admin"), async (req, res) => {
   }
 });
 
+router.delete("/:id", authorize("admin"), async (req, res) => {
+  try {
+    const deleted = await Technology.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ error: "Technology not found" });
+    }
+
+    res.status(200).json({ message: "Technology deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get("/", authorize("admin"), async (req, res) => {
   try {
     const technologies = await Technology.find();
@@ -53,8 +66,10 @@ router.get("/", authorize("admin"), async (req, res) => {
 });
 
 router.get("/published", async (req, res) => {
-    try {
-    const technologies = await Technology.find({ publishedAt: { $exists: true, $ne: null } });
+  try {
+    const technologies = await Technology.find({
+      publishedAt: { $exists: true, $ne: null },
+    });
     res.json(technologies);
   } catch (err) {
     res.status(500).json({ error: err.message });

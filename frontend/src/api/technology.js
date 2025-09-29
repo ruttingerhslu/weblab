@@ -24,6 +24,18 @@ export async function updateTechnology(token, id, data) {
   return res.json();
 }
 
+export async function deleteTechnology(token, id) {
+  const res = await fetch(`http://localhost:8080/technologies/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to delete technology");
+  return res.json();
+}
+
 export async function getTechnologies(token) {
   const res = await fetch("http://localhost:8080/technologies", {
     method: "GET",

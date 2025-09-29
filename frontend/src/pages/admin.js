@@ -5,16 +5,23 @@ import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
 
 import Navbar from "../components/Navbar";
 import TechForm from "../components/TechForm";
 import TechList from "../components/TechList";
-import { getTechnologies } from "../api/technology";
+import { deleteTechnology, getTechnologies } from "../api/technology";
 
 export default function Admin() {
   const [technologies, setTechnologies] = useState([]);
   const [editing, setEditing] = useState(null);
   const [open, setOpen] = useState(false);
+
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [selectedTech, setSelectedTech] = useState(null);
 
   const fetchTechnologies = async () => {
     const token = localStorage.getItem("token");
@@ -50,10 +57,32 @@ export default function Admin() {
     fetchTechnologies();
   };
 
-  const published = technologies.filter((t) => (t.publishedAt ? true : false));
-  const unpublished = technologies.filter((t) =>
-    t.publishedAt ? false : true,
-  );
+  const handleDelete = (tech) => {
+    setSelectedTech(tech);
+    setDeleteOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!selectedTech) return;
+    const token = localStorage.getItem("token");
+    try {
+      await deleteTechnology(token, selectedTech._id);
+      await fetchTechnologies();
+    } catch (err) {
+      console.error("Failed to delete technology", err);
+    } finally {
+      setDeleteOpen(false);
+      setSelectedTech(null);
+    }
+  };
+
+  const cancelDelete = () => {
+    setDeleteOpen(false);
+    setSelectedTech(null);
+  };
+
+  const published = technologies.filter((t) => t.publishedAt);
+  const unpublished = technologies.filter((t) => !t.publishedAt);
 
   return (
     <div>
@@ -70,12 +99,20 @@ export default function Admin() {
         </Stack>
 
         <Typography variant="h6">Unpublished Technologies</Typography>
-        <TechList technologies={unpublished} handleEdit={handleEdit}></TechList>
+        <TechList
+          technologies={unpublished}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
 
         <Divider sx={{ my: 4 }} />
 
         <Typography variant="h6">Published Technologies</Typography>
-        <TechList technologies={published} handleEdit={handleEdit}></TechList>
+        <TechList
+          technologies={published}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
 
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
           <TechForm
@@ -83,6 +120,30 @@ export default function Admin() {
             title={editing ? "Edit Technology" : "Add New Technology"}
             onSuccess={handleFormSuccess}
           />
+        </Dialog>
+
+        <Dialog
+          open={deleteOpen}
+          onClose={cancelDelete}
+          fullWidth
+          maxWidth="xs"
+        >
+          <DialogTitle>Delete Technology</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete{" "}
+              <strong>{selectedTech?.name}</strong>? This action cannot be
+              undone.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={cancelDelete} color="inherit">
+              Cancel
+            </Button>
+            <Button onClick={confirmDelete} color="error" variant="contained">
+              Delete
+            </Button>
+          </DialogActions>
         </Dialog>
       </Box>
     </div>
