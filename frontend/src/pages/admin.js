@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { Box, Typography, Divider, Button, Stack, Dialog } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Dialog from "@mui/material/Dialog";
 
 import Navbar from "../components/Navbar";
 import TechForm from "../components/TechForm";

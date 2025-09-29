@@ -13,16 +13,14 @@ const maturityToRing = {
 };
 
 export function transformTechnologies(data) {
-  return data
-    .filter((tech) => tech.publishedAt)
-    .map((tech) => ({
-      _id: tech._id,
-      label: tech.name,
-      quadrant: categoryToQuadrant[tech.category] ?? 0,
-      ring: maturityToRing[tech.maturity] ?? 3,
-      moved: 0,
-      description: tech.description || "",
-      classification: tech.classification || "",
-      publishedAt: tech.publishedAt,
-    }));
+  return data.map((tech) => ({
+    _id: tech._id,
+    label: tech.name,
+    quadrant: categoryToQuadrant[tech.category] ?? 0,
+    ring: maturityToRing[tech.maturity] ?? 3,
+    moved: 0,
+    description: tech.description || "",
+    classification: tech.classification || "",
+    publishedAt: tech.publishedAt,
+  }));
 }

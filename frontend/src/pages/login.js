@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { Container, Box } from "@mui/material";
-import { AppProvider, SignInPage } from "@toolpad/core";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import { createTheme } from "@mui/material/styles";
+import { AppProvider, SignInPage } from "@toolpad/core";
 
 import { login } from "../api/auth";
 import { isTokenValid, getUserRole } from "../utils/jwt";

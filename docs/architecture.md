@@ -56,7 +56,7 @@ A **CTO** or **Tech Lead** is anyone who is responsible for handling data within
 | Goal/Requirements | Approach |
 | ------------- | ------------- |
 | Desktop/Mobile UI | Responsive design with MaterialUI |
-| Fast load times | Preloading, caching, code splitting |
+| Fast load times | Preloading, caching, server side compression, code splitting |
 | Auditability | Log admin logins in DB |
 | Security | JWT, env vars, bcrypt  |
 | Maintainability | modular React components, RESTful API design |
@@ -297,7 +297,7 @@ The following [Architecture Decision Records (ADR's)](https://adr.github.io/) we
 ## 10.2 Quality Scenarios
 | ID  | Scenario        |
 | --- | --------------- |
-| SC1 |	Radar view loads in <1s on 4G network.
+| SC1 |	Radar view loads in <1s on 4G network. 
 | SC2 |	Only admins can create/update/delete technologies (JWT-verified).
 | SC3 |	If DB is unavailable, API responds with error code and stays operational.
 | SC4 |	User can access radar on mobile without horizontal scrolling.

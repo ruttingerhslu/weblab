@@ -1,8 +1,26 @@
-import React from "react";
-import { Box, Tooltip, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import Popover from "@mui/material/Popover";
 
 const TechRadar = ({ entries }) => {
-  const size = 600;
+  const [selectedBlip, setSelectedBlip] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const [size, setSize] = useState(600);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newSize = Math.min(window.innerWidth - 40, 600); // responsive up to 600px
+      setSize(Math.max(300, newSize)); // clamp between 300 and 600
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const center = size / 2;
   const maxRadius = size / 2 - 20;
 
@@ -15,6 +33,13 @@ const TechRadar = ({ entries }) => {
     { start: Math.PI / 2, end: Math.PI }, // bottom-left
     { start: 0, end: Math.PI / 2 }, // bottom-right
   ];
+
+  const quadrantCounts = [0, 0, 0, 0];
+  entries.forEach((blip) => {
+    const q = Math.max(0, Math.min(3, blip.quadrant ?? 0));
+    quadrantCounts[q]++;
+  });
+  const quadrantIndices = [0, 0, 0, 0];
 
   const ringLabels = ["Adopt", "Trial", "Assess", "Hold"];
   const quadrantLabels = [
@@ -72,6 +97,7 @@ const TechRadar = ({ entries }) => {
               fontWeight: 700,
               color: "#111",
               pointerEvents: "none",
+              fontSize: size < 400 ? "0.65rem" : "0.8rem",
             }}
           >
             {ringLabels[i]}
@@ -107,11 +133,13 @@ const TechRadar = ({ entries }) => {
             key={i}
             sx={{
               position: "absolute",
-              [isLeft ? "left" : "right"]: center - maxRadius + 14,
-              [isTop ? "top" : "bottom"]: center - maxRadius + 12,
+              [isLeft ? "left" : "right"]: center - maxRadius * 1.05,
+              [isTop ? "top" : "bottom"]: center - maxRadius * 1.05,
               fontWeight: 700,
               color: "#111",
               textAlign: isLeft ? "left" : "right",
+              fontSize: size < 400 ? "0.65rem" : "0.8rem",
+              whiteSpace: "nowrap",
             }}
           >
             {label}
@@ -125,18 +153,27 @@ const TechRadar = ({ entries }) => {
         const r = Math.max(0, Math.min(rings - 1, blip.ring ?? rings - 1));
         const range = quadrantAngleRanges[q] || quadrantAngleRanges[0];
 
-        const angle = range.start + Math.random() * (range.end - range.start);
+        const total = quadrantCounts[q];
+        const index = quadrantIndices[q]++; // index of this blip in quadrant
+        const angleStep = (range.end - range.start) / (total + 1);
+        const angle = range.start + angleStep * (index + 1);
+
         const innerRadius = (r / rings) * maxRadius;
         const outerRadius = ((r + 1) / rings) * maxRadius;
-        const radiusVal =
-          innerRadius + Math.random() * (outerRadius - innerRadius);
+        const radius = (innerRadius + outerRadius) / 2; // middle of the band
 
-        const x = center + radiusVal * Math.cos(angle);
-        const y = center + radiusVal * Math.sin(angle);
+        const x = center + radius * Math.cos(angle);
+        const y = center + radius * Math.sin(angle);
 
         return (
           <Tooltip key={blip._id || idx} title={blip.label} arrow>
             <Box
+              component="button"
+              onClick={(e) => {
+                setSelectedBlip(blip);
+                setAnchorEl(e.currentTarget);
+              }}
+              aria-label={`More info about ${blip.label}`}
               sx={{
                 position: "absolute",
                 left: x - 8,
@@ -153,6 +190,47 @@ const TechRadar = ({ entries }) => {
           </Tooltip>
         );
       })}
+      {/* Popover */}
+      <Popover
+        open={Boolean(selectedBlip)}
+        anchorEl={anchorEl}
+        onClose={() => setSelectedBlip(null)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        transformOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        {selectedBlip && (
+          <Box sx={{ p: 2, maxWidth: 350 }}>
+            <Typography variant="h6">{selectedBlip.label}</Typography>
+
+            {selectedBlip.description && (
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                <strong>Description:</strong> {selectedBlip.description}
+              </Typography>
+            )}
+
+            {selectedBlip.classification && (
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                <strong>Classification:</strong> {selectedBlip.classification}
+              </Typography>
+            )}
+
+            {selectedBlip.publishedAt && (
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                <strong>Published:</strong>{" "}
+                {new Date(selectedBlip.publishedAt).toLocaleDateString()}
+              </Typography>
+            )}
+
+            <Typography variant="body2" sx={{ mt: 1 }}>
+              <strong>Quadrant:</strong> {selectedBlip.quadrant}
+            </Typography>
+
+            <Typography variant="body2" sx={{ mt: 1 }}>
+              <strong>Ring:</strong> {selectedBlip.ring}
+            </Typography>
+          </Box>
+        )}
+      </Popover>
     </Box>
   );
 };
