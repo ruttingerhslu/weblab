@@ -29,5 +29,6 @@
 | 29.09.25 | doc on solution strat., quality, etc.   | 1h   |
 |          | Responsive + accessible radar viewer    | 3h   |
 |          | Delete button on admin dashboard        | 1h   |
+| 30.09.25 | Unit tests for frontend pages and utils | 2h   |
 
-**TOTAL: 45h**
+**TOTAL: 47h**
