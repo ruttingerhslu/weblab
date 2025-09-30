@@ -30,5 +30,6 @@
 |          | Responsive + accessible radar viewer    | 3h   |
 |          | Delete button on admin dashboard        | 1h   |
 | 30.09.25 | Unit tests for frontend pages and utils | 2h   |
+|          | Unit tests for components and api calls | 2h   |
 
-**TOTAL: 47h**
+**TOTAL: 49h**

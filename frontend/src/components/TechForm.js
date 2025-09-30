@@ -57,7 +57,7 @@ export default function TechForm({ initialData = null, onSuccess, title }) {
         await addTechnology(token, formData);
       }
 
-      alert("✅ Saved successfully!");
+      alert("Saved successfully!");
       setFormData({
         name: "",
         description: "",

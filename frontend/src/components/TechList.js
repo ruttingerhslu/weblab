@@ -7,7 +7,8 @@ import {
   Box,
 } from "@mui/material";
 
-import { DeleteIcon, EditIcon } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 export default function TechList({ technologies, handleEdit, handleDelete }) {
   return (
@@ -22,10 +23,18 @@ export default function TechList({ technologies, handleEdit, handleDelete }) {
             >
               <Typography variant="subtitle1">{tech.name}</Typography>
               <Box>
-                <IconButton size="small" onClick={() => handleEdit(tech)}>
+                <IconButton
+                  size="small"
+                  onClick={() => handleEdit(tech)}
+                  aria-label={`edit ${tech.name}`}
+                >
                   <EditIcon fontSize="small" />
                 </IconButton>
-                <IconButton size="small" onClick={() => handleDelete(tech)}>
+                <IconButton
+                  size="small"
+                  onClick={() => handleDelete(tech)}
+                  aria-label={`delete ${tech.name}`}
+                >
                   <DeleteIcon fontSize="small" />
                 </IconButton>
               </Box>
