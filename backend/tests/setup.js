@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { MongoMemoryServer } = require("mongodb-memory-server"); // v8+ style
+const { MongoMemoryServer } = require("mongodb-memory-server");
 
 let mongoServer;
 

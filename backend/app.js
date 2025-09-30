@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const compression = require("compression");
 
-const authMiddleware = require("./middleware/authenticate.js");
+const authenticate = require("./middleware/authenticate.js");
 const technologyRoutes = require("./routes/technologies.js");
 const authRoutes = require("./routes/auth.js");
 
@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 // Protected + public routes
-app.use("/technologies", authMiddleware, technologyRoutes);
+app.use("/technologies", authenticate, technologyRoutes);
 app.use("/auth", authRoutes);
 
 module.exports = app;

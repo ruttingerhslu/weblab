@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const authenticate = require("../middleware/authenticate.js");
 const authorize = require("../middleware/authorize.js");
 
 const User = require("../models/user.js");
@@ -9,7 +10,7 @@ const LoginLog = require("../models/loginLog.js");
 
 const router = express.Router();
 
-router.post("/register", authorize("admin"), async (req, res) => {
+router.post("/register", authenticate, authorize("admin"), async (req, res) => {
   try {
     const { email, password, role } = req.body;
     let user = await User.findOne({ email });
@@ -18,7 +19,11 @@ router.post("/register", authorize("admin"), async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    user = new User({ email, password: hashedPassword, role: role || "user" });
+    user = new User({
+      email,
+      password: hashedPassword,
+      role: role || "user",
+    });
     await user.save();
 
     res.status(201).json({ message: "User registered successfully" });
@@ -51,7 +56,7 @@ router.post("/login", async (req, res) => {
       try {
         await LoginLog.create({
           userId: user._id,
-          username: user.username || user.email, // fallback if no username
+          username: user.username || user.email,
           ipAddress: req.ip,
           userAgent: req.get("User-Agent"),
         });

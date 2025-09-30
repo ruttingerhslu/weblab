@@ -4,7 +4,7 @@ const path = require("path");
 
 dotenv.config({ path: path.resolve("../.env") });
 
-const authMiddleware = (req, res, next) => {
+const authenticate = (req, res, next) => {
   const authHeader = req.header("Authorization");
 
   if (!authHeader) {
@@ -29,4 +29,4 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-module.exports = authMiddleware;
+module.exports = authenticate;
