@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
-import Popover from "@mui/material/Popover";
+import { Box, Popover, Tooltip, Typography } from "@mui/material";
 
 const TechRadar = ({ entries }) => {
   const [selectedBlip, setSelectedBlip] = useState(null);

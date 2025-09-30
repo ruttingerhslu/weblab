@@ -7,8 +7,7 @@ import {
   Box,
 } from "@mui/material";
 
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import { DeleteIcon, EditIcon } from "@mui/icons-material";
 
 export default function TechList({ technologies, handleEdit, handleDelete }) {
   return (
