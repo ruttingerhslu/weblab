@@ -34,3 +34,5 @@ The [MERN](https://www.geeksforgeeks.org/mern/understand-mern-stack/) tech stack
    - `npm start`
 6. Visit `http://localhost:3000`
 7. Log in with the admin credentials you set in `.env`
+
+To test the project you can either run `npm test` in the root folder for both frontend and backend, or in their respective `frontend` and `backend` folders (also `npm test`).

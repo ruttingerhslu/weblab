@@ -6,6 +6,7 @@ import Home from "./pages/Index";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Viewer from "./pages/Viewer";
+import About from "./pages/About";
 import Forbidden from "./pages/Forbidden";
 import NotFound from "./pages/NotFound";
 
@@ -19,6 +20,9 @@ function App() {
       </Route>
       <Route element={<ProtectedRoute roles={["admin", "user"]} />}>
         <Route path="/viewer" element={<Viewer />} />
+      </Route>
+      <Route element={<ProtectedRoute roles={["admin", "user"]} />}>
+        <Route path="/about" element={<About />}/>
       </Route>
       <Route path="/forbidden" element={<Forbidden />} />
       <Route path="*" element={<NotFound />} />

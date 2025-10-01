@@ -46,9 +46,16 @@ export default function Navbar() {
             Admin
           </Button>
         )}
+
         {["admin", "user"].includes(role) && (
           <Button color="inherit" component={RouterLink} to="/viewer">
             Viewer
+          </Button>
+        )}
+
+        {["admin", "user"].includes(role) && (
+          <Button color="inherit" component={RouterLink} to="/about">
+            About
           </Button>
         )}
 
