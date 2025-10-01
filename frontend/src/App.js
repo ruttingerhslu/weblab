@@ -2,10 +2,12 @@ import "./App.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Routes, Route } from "react-router";
 
-import Home from "./pages";
-import Admin from "./pages/admin";
-import Login from "./pages/login";
-import Viewer from "./pages/viewer";
+import Home from "./pages/Index";
+import Admin from "./pages/Admin";
+import Login from "./pages/Login";
+import Viewer from "./pages/Viewer";
+import Forbidden from "./pages/Forbidden";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
       <Route element={<ProtectedRoute roles={["admin", "user"]} />}>
         <Route path="/viewer" element={<Viewer />} />
       </Route>
+      <Route path="/forbidden" element={<Forbidden />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

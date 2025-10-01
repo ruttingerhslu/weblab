@@ -22,7 +22,7 @@ Scope constraint for this project is set to ~60 hours of work, which includes im
 
 Once finished, the project will be turned in as a git repository.
 
-Additionally, the work should be critically reflected including conclusion.
+Additionally, the work should be critically reflected upon ([conclusion](./conclusion.md)).
 
 # 3. System context and scope
 
@@ -60,7 +60,7 @@ A **CTO** or **Tech Lead** is anyone who is responsible for handling data within
 | Auditability | Log admin logins in DB |
 | Security | JWT, env vars, bcrypt  |
 | Maintainability | modular React components, RESTful API design |
-| Scalability/Availability | Limited (free-tier) MongoDB |
+| Scalability/Availability | Limited to MongoDB model |
 | Accessbility| MaterialUI components with ARIA compliance |
 
 # 5. Building Block View
@@ -251,8 +251,6 @@ Rel(expressApp, cloudMongo, "Reads/Writes")
 ```
 
 # 8. Concepts
-
-<!-- TODO: domain model, cross-cutting concepts, radar visualization -->
 
 ## 8.1 Domain models
 

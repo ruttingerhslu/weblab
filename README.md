@@ -7,6 +7,7 @@ This project is part of the HSLU course WEBLAB. For the assignment, I chose the 
 - [Architecture documentation](./docs/architecture.md)
 - [Kanban Board](https://github.com/users/ruttingerhslu/projects/2)
 - [Work journal](./docs/work-journal.md)
+- [Conclusion and reflection](./docs/conclusion.md)
 
 ## Tech Stack
 The [MERN](https://www.geeksforgeeks.org/mern/understand-mern-stack/) tech stack was chosen for this project:

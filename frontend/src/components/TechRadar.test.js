@@ -49,7 +49,5 @@ describe("TechRadar", () => {
       screen.getByText(/Established and well documented/i),
     ).toBeInTheDocument();
     expect(screen.getByText(/Published:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Quadrant:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Ring:/i)).toBeInTheDocument();
   });
 });

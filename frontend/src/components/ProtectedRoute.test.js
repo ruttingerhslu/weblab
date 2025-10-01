@@ -14,18 +14,23 @@ describe("ProtectedRoute", () => {
   const renderWithRouter = (ui, { initialEntries = ["/"] } = {}) =>
     render(
       <MemoryRouter initialEntries={initialEntries}>
-        <Routes>{ui}</Routes>
-      </MemoryRouter>,
+        <Routes>
+          {ui}
+          <Route path="/login" element={<div>Login Page</div>} />
+          <Route path="/forbidden" element={<div>Forbidden Page</div>} />
+        </Routes>
+      </MemoryRouter>
     );
 
   it("redirects to /login if no token", () => {
     renderWithRouter(
       <Route path="/" element={<ProtectedRoute />}>
         <Route path="/" element={<div>Outlet</div>} />
-      </Route>,
+      </Route>
     );
 
     expect(screen.queryByText("Outlet")).not.toBeInTheDocument();
+    expect(screen.getByText("Login Page")).toBeInTheDocument();
   });
 
   it("redirects to /forbidden if role is not allowed", () => {
@@ -36,10 +41,11 @@ describe("ProtectedRoute", () => {
     renderWithRouter(
       <Route path="/" element={<ProtectedRoute roles={["admin"]} />}>
         <Route path="/" element={<div>Outlet</div>} />
-      </Route>,
+      </Route>
     );
 
     expect(screen.queryByText("Outlet")).not.toBeInTheDocument();
+    expect(screen.getByText("Forbidden Page")).toBeInTheDocument();
   });
 
   it("renders Outlet if token is valid and role allowed", () => {
@@ -50,9 +56,11 @@ describe("ProtectedRoute", () => {
     renderWithRouter(
       <Route path="/" element={<ProtectedRoute roles={["admin"]} />}>
         <Route path="/" element={<div>Outlet</div>} />
-      </Route>,
+      </Route>
     );
 
     expect(screen.getByText("Outlet")).toBeInTheDocument();
+    expect(screen.queryByText("Login Page")).not.toBeInTheDocument();
+    expect(screen.queryByText("Forbidden Page")).not.toBeInTheDocument();
   });
 });

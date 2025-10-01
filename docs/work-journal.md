@@ -34,5 +34,7 @@
 |          | Unit tests for routes, models, midware  | 2h   |
 | 01.10.25 | Doc radarview concept and domain models | 2h   |
 |          | Default adminPw and instructions to run | 1h   |
+|          | Conclusion + cleanup                    | 1h   |
+|          | Add forbidden and not_found pages       | 1h   |
 
-**TOTAL: 53h**
+**TOTAL: 55h**

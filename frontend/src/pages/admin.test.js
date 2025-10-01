@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Admin from "./admin";
+import Admin from "./Admin";
 import { getTechnologies, deleteTechnology } from "../api/technology";
 
 jest.mock("../api/technology", () => ({
@@ -98,7 +98,6 @@ describe("Admin", () => {
 
     expect(await screen.findByText(/are you sure/i)).toBeInTheDocument();
 
-    // Confirm deletion
     const confirmButton = screen.getByRole("button", { name: /delete/i });
     await userEvent.click(confirmButton);
 

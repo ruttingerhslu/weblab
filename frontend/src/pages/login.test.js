@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import { login } from "../api/auth";
 import { isTokenValid, getUserRole } from "../utils/jwt";
-import Login from "./login";
+import Login from "./Login";
 
 const mockNavigate = jest.fn();
 jest.mock("react-router", () => ({

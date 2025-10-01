@@ -9,7 +9,7 @@ jest.mock("../api/technology", () => ({
 jest.mock("../utils/transform", () => ({
   transformTechnologies: jest.fn(),
 }));
-import Viewer from "./viewer";
+import Viewer from "./Viewer";
 /* eslint-enable import/first */
 
 jest.mock("../components/TechRadar.js", () => () => (
@@ -23,12 +23,13 @@ jest.mock("../components/Navbar", () => () => (
 describe("Viewer", () => {
   beforeEach(() => {
     localStorage.clear();
-    jest.clearAllMocks();
   });
 
-  it("renders Navbar", () => {
+  it("renders Navbar", async () => {
     render(<Viewer />);
-    expect(screen.getByTestId("navbar")).toBeInTheDocument();
+    await waitFor(()=> {
+      expect(screen.getByTestId("navbar")).toBeInTheDocument();
+    });
   });
 
   it("fetches and transforms technologies, stores them in localStorage", async () => {
@@ -53,15 +54,19 @@ describe("Viewer", () => {
         JSON.stringify(mockData),
       ),
     );
-
-    expect(await screen.findByTestId("tech-radar")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByTestId("tech-radar")).toBeInTheDocument();
+    });
+    
   });
 
-  it("handles invalid cached technologies gracefully", () => {
+  it("handles invalid cached technologies gracefully", async () => {
     localStorage.setItem("technologies", "{ invalid json");
 
     render(<Viewer />);
 
-    expect(screen.getByTestId("navbar")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByTestId("navbar")).toBeInTheDocument();
+    });
   });
 });
