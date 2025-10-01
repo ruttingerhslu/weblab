@@ -341,7 +341,7 @@ The following [Architecture Decision Records (ADR's)](https://adr.github.io/) we
 ## 10.2 Quality Scenarios
 | ID  | Scenario        |
 | --- | --------------- |
-| SC1 |	Radar view loads in <1s on 4G network. 
+| SC1 |	Radar view loads in <1s on 4G network, though due to the bundle size of the app, a refresh will cause a load of ~1.4s.
 | SC2 |	Only admins can create/update/delete technologies (JWT-verified), using authorization middelware.
 | SC3 |	If DB is unavailable, API responds with error code and stays operational.
 | SC4 |	User can access radar on mobile without horizontal scrolling.
