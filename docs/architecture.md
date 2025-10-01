@@ -256,6 +256,36 @@ Rel(expressApp, cloudMongo, "Reads/Writes")
 
 ## 8.1 Domain models
 
+### Technology
+Represents an item in the technology radar.
+
+Attribute | Description
+-- | --
+*Name* | unique identifier and display name of the technology
+*Category* | classifies the technology into one of the radar’s quadrants (options: `Techniques`, `Tools`, `Platforms`, `Languages & Frameworks`)
+*Maturity\** | indicates adoption stage (options: `Assess`, `Trial`, `Adopt`, `Hold`)
+*Description* | explains the technology and/or its usage
+*Classification\** | provides an assessment of its maturity level
+*Created at* | date of creation
+*Published at* | date of publication; sets *maturity* and *classification* to be required
+*Updated at* | date of last update
+
+\* only required if technology is set to be published 
+
+- Unpublished technologies must at least have a name, category, and description.
+- A technology set to publish must have both `maturity` and `classification`.
+- Empty strings are normalized to `null` for `maturity`, `classification`, `publishedAt` or `updatedAt`.
+
+### User
+Represents a system user who can authenticate and perform actions based on role.
+
+Attribute | Description
+-- | --
+*Email* | unique login identifier
+*Password* | length 8 password, hashed with salt
+*Role* | determines access rights (options: `admin`, `user`)
+
+- Every login of a user with role `admin` gets logged.
 
 
 ## 8.2 API endpoints
@@ -269,9 +299,25 @@ This list summarizes all endpoints, that are available to either admins or users
 | ``/technologies`` | POST | add new technology | admin |
 | ``/technologies/:id`` | PUT | edit exisiting technology | admin |
 | ``/technologies/bulk`` | POST | add multiple technologies at once | admin
+| ``/technologies/:id`` | DELETE | delete technology | admin 
 | ``/auth/login`` | POST | login to receive JWT token (incl. role) | admin / user |
 | ``/auth/register`` | POST | register new user (admin or user) | admin |
 
+## 8.3 Radar visualization
+The radar visualization presents technologies as blips within a radar diagram divided into four quadrants (category) and four rings (maturity level).
+
+- *Quadrants* categorize the type of technology. 
+- *Rings* represent the maturity or recommendation stage of a technology.
+- *Blips* are positioned within a quadrant and ring, with placement calculated to distribute them evenly.
+- *Colors* indicate the quadrant a blip is in, to distinguish between blips close to the edge.
+- *Interactivity*: Hovering shows tooltips, and clicking a blip opens a popover with details such as description, classification, and publication date.
+- *Responsiveness*: The radar adapts between 300–600px depending on screen size.
+
+The radar is an isolated component, so that it can be used anywhere. In the future, we could even export it to other systems for others to use.
+
+![Radarview with popover](./assets/radarview-popover.png)
+
+In the image above, a popover window was opened on the lower red *blip*. It is located in the innermost maturity ring (Adopt) and upper left quadrant (Techniques). Additional data can be seen in the window.
 
 # 9. Architecture Decisions
 
@@ -292,13 +338,13 @@ The following [Architecture Decision Records (ADR's)](https://adr.github.io/) we
 | Security    | Only admins can modify technologies                 | SC2 |
 | Reliability | System handles DB downtime gracefully	            | SC3 |
 | Usability   | Radar usable on mobile without horizontal scrolling | SC4 |
-| Testability | API routes covered by automated tests (≥70%)        | SC5 |
+| Testability | API routes covered by automated tests (≥75%)        | SC5 |
 
 ## 10.2 Quality Scenarios
 | ID  | Scenario        |
 | --- | --------------- |
 | SC1 |	Radar view loads in <1s on 4G network. 
-| SC2 |	Only admins can create/update/delete technologies (JWT-verified).
+| SC2 |	Only admins can create/update/delete technologies (JWT-verified), using authorization middelware.
 | SC3 |	If DB is unavailable, API responds with error code and stays operational.
 | SC4 |	User can access radar on mobile without horizontal scrolling.
-| SC5 |	Automated Jest/Supertest coverage ≥70% on backend routes.
+| SC5 |	Automated Jest/Supertest coverage ≥75% on backend routes.

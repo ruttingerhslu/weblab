@@ -217,14 +217,6 @@ const TechRadar = ({ entries }) => {
                 {new Date(selectedBlip.publishedAt).toLocaleDateString()}
               </Typography>
             )}
-
-            <Typography variant="body2" sx={{ mt: 1 }}>
-              <strong>Quadrant:</strong> {selectedBlip.quadrant}
-            </Typography>
-
-            <Typography variant="body2" sx={{ mt: 1 }}>
-              <strong>Ring:</strong> {selectedBlip.ring}
-            </Typography>
           </Box>
         )}
       </Popover>

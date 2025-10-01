@@ -31,6 +31,7 @@
 |          | Delete button on admin dashboard        | 1h   |
 | 30.09.25 | Unit tests for frontend pages and utils | 2h   |
 |          | Unit tests for components and api calls | 2h   |
-|          | Unit tests for routes, models, m. ware  | 2h   |
+|          | Unit tests for routes, models, midware  | 2h   |
+| 01.10.25 | Doc radarview concept and domain models | 2h   |
 
-**TOTAL: 51h**
+**TOTAL: 53h**
