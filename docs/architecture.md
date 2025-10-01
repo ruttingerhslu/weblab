@@ -313,7 +313,9 @@ The radar visualization presents technologies as blips within a radar diagram di
 
 The radar is an isolated component, so that it can be used anywhere. In the future, we could even export it to other systems for others to use.
 
-![Radarview with popover](./assets/radarview-popover.png)
+<p align="center">
+  <img src="./assets/radarview-popover.png" alt="Radarview with popover" width="50%">
+</p>
 
 In the image above, a popover window was opened on the lower red *blip*. It is located in the innermost maturity ring (Adopt) and upper left quadrant (Techniques). Additional data can be seen in the window.
 
