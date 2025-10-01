@@ -14,3 +14,22 @@ The [MERN](https://www.geeksforgeeks.org/mern/understand-mern-stack/) tech stack
 - Express: NodeJS web server
 - React: JavaScript Frontend Library
 - Node: JavaScript Web Server
+
+## Setup
+
+1. Clone this repository
+2. Copy `.env.example` to `.env`
+3. Fill in the values:
+   - `MONGO_URI` → your MongoDB connection
+   - `JWT_SECRET` → any random string
+   - `ADMIN_EMAIL` and `ADMIN_PASSWORD` → credentials for the admin account
+4. Start the backend:
+   -  `cd backend`
+   -  `npm i` 
+   -  `npm start`
+5. Start the frontend: 
+   - `cd frontend`
+   - `npm i`
+   - `npm start`
+6. Visit `http://localhost:3000`
+7. Log in with the admin credentials you set in `.env`

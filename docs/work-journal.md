@@ -33,5 +33,6 @@
 |          | Unit tests for components and api calls | 2h   |
 |          | Unit tests for routes, models, midware  | 2h   |
 | 01.10.25 | Doc radarview concept and domain models | 2h   |
+|          | Default adminPw and instructions to run | 1h   |
 
 **TOTAL: 53h**

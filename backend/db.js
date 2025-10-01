@@ -1,15 +1,44 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require("path");
+const bcrypt = require("bcrypt");
+
+const User = require("./models/user.js");
 
 dotenv.config({ path: path.resolve("../.env") });
 
-const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}?${process.env.MONGO_OPTIONS}`;
+async function initAdmin() {
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!email || !password) {
+    console.warn("No ADMIN_EMAIL or ADMIN_PASSWORD provided in .env");
+    return;
+  }
+
+  const existing = await User.findOne({ email });
+
+  if (existing) {
+    return;
+  }
+
+  const hashed = await bcrypt.hash(password, 10);
+
+  const admin = new User({
+    email,
+    password: hashed,
+    role: "admin",
+  });
+
+  await admin.save();
+  console.log(`Admin user created: ${email}`);
+}
 
 async function run() {
   try {
-    await mongoose.connect(uri);
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to MongoDB Atlas");
+    await initAdmin();
     return mongoose.connection;
   } catch (err) {
     console.error("MongoDB connection error:", err);
