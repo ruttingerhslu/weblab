@@ -12,7 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 
-import Navbar from "../components/Navbar";
 import TechForm from "../components/TechForm";
 import TechList from "../components/TechList";
 import { deleteTechnology, getTechnologies } from "../api/technology";
@@ -88,7 +87,6 @@ export default function Admin() {
 
   return (
     <div>
-      <Navbar />
       <Box sx={{ p: 4 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>
           <Typography variant="h4" gutterBottom>
