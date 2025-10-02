@@ -37,5 +37,6 @@
 |          | Conclusion + cleanup                    | 1h   |
 |          | Add forbidden and not_found pages       | 1h   |
 |          | Add about page including unit test      | 1h   |
+| 02.10.25 | Fix issue with git renaming files       | 1h   |
 
-**TOTAL: 56h**
+**TOTAL: 57h**
