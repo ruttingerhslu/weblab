@@ -1,12 +1,9 @@
 import React from "react";
 import { Box, Typography, Link } from "@mui/material";
 
-import Navbar from "../components/Navbar";
-
 export default function About() {
   return (
     <div>
-      <Navbar />
       <Box sx={{ m: 4 }}>
         <Typography variant="h4" gutterBottom>
           About

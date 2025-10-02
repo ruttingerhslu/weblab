@@ -1,6 +1,7 @@
 import "./App.css";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { Routes, Route } from "react-router";
+import Navbar from "./components/Navbar";
+import { Routes, Route, useLocation } from "react-router";
 
 import Home from "./pages/Index";
 import Admin from "./pages/Admin";
@@ -11,22 +12,30 @@ import Forbidden from "./pages/Forbidden";
 import NotFound from "./pages/NotFound";
 
 function App() {
+  const location = useLocation();
+
+  const hideNavbar = ["/login", "/forbidden"].includes(location.pathname);
+
   return (
-    <Routes>
-      <Route exact path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route element={<ProtectedRoute roles={["admin"]} />}>
-        <Route path="/admin" element={<Admin />} />
-      </Route>
-      <Route element={<ProtectedRoute roles={["admin", "user"]} />}>
-        <Route path="/viewer" element={<Viewer />} />
-      </Route>
-      <Route element={<ProtectedRoute roles={["admin", "user"]} />}>
-        <Route path="/about" element={<About />}/>
-      </Route>
-      <Route path="/forbidden" element={<Forbidden />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      {!hideNavbar && <Navbar />}
+
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoute roles={["admin"]} />}>
+          <Route path="/admin" element={<Admin />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={["admin", "user"]} />}>
+          <Route path="/viewer" element={<Viewer />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={["admin", "user"]} />}>
+          <Route path="/about" element={<About />} />
+        </Route>
+        <Route path="/forbidden" element={<Forbidden />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 

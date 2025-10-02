@@ -1,7 +1,6 @@
 import { useEffect, useState, lazy, Suspense } from "react";
 import Box from "@mui/material/Box";
 
-import Navbar from "../components/Navbar";
 import { getPublishedTechnologies } from "../api/technology";
 import { transformTechnologies } from "../utils/transform";
 
@@ -40,7 +39,6 @@ const Viewer = () => {
 
   return (
     <div>
-      <Navbar />
       <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
         <Suspense fallback={<div>Loading Radar...</div>}>
           <TechRadar entries={entries} />
